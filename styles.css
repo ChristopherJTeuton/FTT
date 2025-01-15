@@ -6,9 +6,7 @@ body {
     align-items: center;
     background-image: url('background.jpg');
     background-size: cover;
-    perspective: 2000px;
     font-family: 'Roboto', sans-serif;
-    padding-bottom: 60px; /* Add padding to prevent footer overlap */
 }
 
 header {
@@ -29,33 +27,26 @@ header h1 {
 
 .carousel-container {
     position: relative;
-    width: 340px;
-    height: 600px;
+    width: 80%;
+    max-width: 800px;
+    overflow: hidden;
     margin-top: 20px;
 }
 
 .carousel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
 }
 
 .carousel-item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+    flex: 0 0 30%; /* Adjusted for spacing */
+    margin: 0 10px; /* Add horizontal space between items */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    transform-origin: bottom center;
 }
 
 .carousel-item .frame {
@@ -79,7 +70,7 @@ header h1 {
     object-fit: contain;
     display: block;
     cursor: pointer;
-    z-index: 1; /* Ensure the image is above the frame */
+    z-index: 1;
 }
 
 .carousel-item .frame::after {
@@ -93,7 +84,7 @@ header h1 {
     background-size: cover;
     background-position: center;
     pointer-events: none;
-    z-index: 2; /* Ensure the frame is above the image */
+    z-index: 2;
 }
 
 .carousel-item h3 {
@@ -110,18 +101,17 @@ header h1 {
 
 .view-full-button {
     margin-top: 10px;
-    padding: 8px 12px; /* Adjust button size */
+    padding: 5px 10px;
     background-color: #ff5f5f;
     color: white;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 12px; /* Smaller font size for buttons */
+    font-size: 14px;
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s;
     cursor: pointer;
-    z-index: 10; /* Ensure the button is above other elements */
-    position: relative; /* Ensure the button is correctly aligned */
+    z-index: 10;
 }
 
 .view-full-button:hover {
@@ -137,7 +127,7 @@ header h1 {
     border: none;
     padding: 15px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 20;
     border-radius: 50%;
     transition: background-color 0.3s;
     display: flex;
@@ -146,11 +136,11 @@ header h1 {
 }
 
 #left-arrow {
-    left: -40px;
+    left: 10px;
 }
 
 #right-arrow {
-    right: -40px;
+    right: 10px;
 }
 
 #left-arrow:hover, #right-arrow:hover {
@@ -158,17 +148,16 @@ header h1 {
 }
 
 .support-button {
-    margin-top: 20px; /* Adjust margin to prevent overlap */
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding: 15px 30px;
     background-color: #ff5f5f;
     color: white;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 16px; /* Adjust support button size */
+    font-size: 20px;
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s;
-    position: relative; /* Ensure the button is correctly aligned */
 }
 
 .support-button:hover {
@@ -246,55 +235,4 @@ footer {
     color: #fff;
     font-size: 14px;
     font-family: 'CustomFont', sans-serif;
-    z-index: -1; /* Ensure the footer is below the support button */
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-    .carousel-container {
-        width: 100%;
-        height: 400px; /* Adjust carousel height for smaller screens */
-    }
-
-    .carousel-item {
-        font-size: 14px; /* Adjust text size */
-    }
-
-    #left-arrow, #right-arrow {
-        padding: 10px; /* Smaller padding for arrows */
-        width: 40px;
-        height: 40px;
-        font-size: 20px; /* Adjust icon size */
-    }
-
-    .view-full-button {
-        padding: 8px 12px; /* Adjust button size */
-        font-size: 12px; /* Smaller font size for buttons */
-    }
-
-    .support-button {
-        font-size: 16px; /* Adjust support button size */
-        padding: 10px 20px;
-    }
-
-    .modal-content {
-        width: 90%; /* Ensure modal fits smaller screens */
-    }
-
-    footer {
-        font-size: 12px; /* Smaller font size for footer */
-    }
-}
-
-/* Ensure the carousel images are responsive */
-.carousel-item img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* Adjust modal for smaller screens */
-.modal-content img {
-    width: 100%;
-    height: auto;
 }

@@ -1,5 +1,6 @@
-const carouselItems = document.querySelectorAll('.carousel-item');
-let currentIndex = 0;
+const carousel = document.querySelector('.carousel');
+const carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
+let currentIndex = Math.floor(carouselItems.length / 2); // Start with the middle item
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const modal = document.getElementById('modal');
@@ -8,23 +9,25 @@ const modalTitle = document.getElementById('modal-title');
 const modalDescription = document.getElementById('modal-description');
 const closeModal = document.getElementsByClassName('close')[0];
 
-const imageSources = [
-    'A1.jpg', 'A2.jpg', 'A3.jpg', 'A4.jpg', 'A5.jpg',
-    'A6.jpg', 'A7.jpg', 'A8.jpg', 'A9.jpg', 'AB1.jpg',
-    'B1.jpg', 'B2.jpg', 'B3.jpg', 'B4.jpg', 'B5.jpg',
-    'B6.jpg', 'B7.jpg'
-];
-imageSources.forEach(src => {
-    const img = new Image();
-    img.src = src;
-});
+// Shuffle the carousel items
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Randomize painting order
+function randomizePaintings() {
+    const shuffledItems = shuffle(carouselItems);
+    carousel.innerHTML = '';
+    shuffledItems.forEach(item => carousel.appendChild(item));
+}
 
 function updateCarousel() {
-    const angle = (currentIndex / carouselItems.length) * 360;
-    carouselItems.forEach((item, index) => {
-        const itemAngle = (index / carouselItems.length) * 360 - angle;
-        item.style.transform = `rotateY(${itemAngle}deg) translateZ(1200px)`;
-    });
+    const offset = -currentIndex * 100 / 3; // Adjust for three items visible
+    carousel.style.transform = `translateX(${offset}%)`;
 }
 
 function navigateCarousel(direction) {
@@ -70,7 +73,6 @@ window.addEventListener('click', function(event) {
 let startX;
 let startY;
 let isDragging = false;
-let lastSwipeTime = 0;
 
 document.addEventListener('touchstart', function(event) {
     startX = event.touches[0].clientX;
@@ -80,10 +82,6 @@ document.addEventListener('touchstart', function(event) {
 
 document.addEventListener('touchmove', function(event) {
     if (!isDragging) return;
-
-    const currentTime = new Date().getTime();
-    if (currentTime - lastSwipeTime < 300) return; // Debounce to prevent rapid swipes
-
     const x = event.touches[0].clientX;
     const y = event.touches[0].clientY;
     const dx = x - startX;
@@ -96,7 +94,6 @@ document.addEventListener('touchmove', function(event) {
             navigateCarousel('left');
         }
         isDragging = false;
-        lastSwipeTime = currentTime;
     }
 });
 
@@ -104,9 +101,9 @@ document.addEventListener('touchend', function() {
     isDragging = false;
 });
 
-// Ensure the modal is closed when the page loads
+// Randomize paintings on load and update carousel
 window.addEventListener('load', () => {
+    randomizePaintings();
+    updateCarousel();
     modal.style.display = 'none';
 });
-
-updateCarousel();
