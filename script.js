@@ -1,6 +1,6 @@
 const carousel = document.querySelector('.carousel');
 const carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
-let currentIndex = Math.floor(carouselItems.length / 2); // Start with the middle item
+let currentIndex = 0;
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const modal = document.getElementById('modal');
@@ -9,7 +9,7 @@ const modalTitle = document.getElementById('modal-title');
 const modalDescription = document.getElementById('modal-description');
 const closeModal = document.getElementsByClassName('close')[0];
 
-// Shuffle the carousel items
+// Shuffle the paintings (randomize order)
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -18,18 +18,20 @@ function shuffle(array) {
     return array;
 }
 
-// Randomize painting order
-function randomizePaintings() {
+// Randomize carousel items
+function randomizeCarousel() {
     const shuffledItems = shuffle(carouselItems);
-    carousel.innerHTML = '';
+    carousel.innerHTML = ''; // Clear carousel
     shuffledItems.forEach(item => carousel.appendChild(item));
 }
 
+// Update the carousel's position
 function updateCarousel() {
-    const offset = -currentIndex * 100 / 3; // Adjust for three items visible
+    const offset = -currentIndex * (100 / 3); // Adjust for three items visible
     carousel.style.transform = `translateX(${offset}%)`;
 }
 
+// Navigate the carousel left or right
 function navigateCarousel(direction) {
     if (direction === 'left') {
         currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
@@ -39,7 +41,10 @@ function navigateCarousel(direction) {
     updateCarousel();
 }
 
-document.addEventListener('keydown', function(event) {
+// Event listeners for navigation
+leftArrow.addEventListener('click', () => navigateCarousel('left'));
+rightArrow.addEventListener('click', () => navigateCarousel('right'));
+document.addEventListener('keydown', function (event) {
     if (event.key === 'ArrowLeft') {
         navigateCarousel('left');
     } else if (event.key === 'ArrowRight') {
@@ -47,11 +52,9 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-leftArrow.addEventListener('click', () => navigateCarousel('left'));
-rightArrow.addEventListener('click', () => navigateCarousel('right'));
-
+// Modal functionality
 document.querySelectorAll('.view-full-button').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         const item = button.closest('.carousel-item');
         modal.style.display = 'flex';
         modalImg.src = item.querySelector('img').src;
@@ -64,23 +67,24 @@ closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
 });
 
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function (event) {
     if (event.target === modal) {
         modal.style.display = 'none';
     }
 });
 
+// Touch/swipe functionality
 let startX;
 let startY;
 let isDragging = false;
 
-document.addEventListener('touchstart', function(event) {
+document.addEventListener('touchstart', function (event) {
     startX = event.touches[0].clientX;
     startY = event.touches[0].clientY;
     isDragging = true;
 });
 
-document.addEventListener('touchmove', function(event) {
+document.addEventListener('touchmove', function (event) {
     if (!isDragging) return;
     const x = event.touches[0].clientX;
     const y = event.touches[0].clientY;
@@ -97,13 +101,14 @@ document.addEventListener('touchmove', function(event) {
     }
 });
 
-document.addEventListener('touchend', function() {
+document.addEventListener('touchend', function () {
     isDragging = false;
 });
 
-// Randomize paintings on load and update carousel
+// Ensure the modal is closed when the page loads
 window.addEventListener('load', () => {
-    randomizePaintings();
-    updateCarousel();
     modal.style.display = 'none';
+    randomizeCarousel(); // Randomize the paintings
+    currentIndex = Math.floor(carouselItems.length / 2); // Start with middle painting selected
+    updateCarousel();
 });
