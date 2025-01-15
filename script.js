@@ -1,5 +1,5 @@
 const carousel = document.querySelector('.carousel');
-const carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
+let carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
 let currentIndex = 0;
 const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
@@ -9,7 +9,6 @@ const modalTitle = document.getElementById('modal-title');
 const modalDescription = document.getElementById('modal-description');
 const closeModal = document.getElementsByClassName('close')[0];
 
-// Shuffle the paintings (randomize order)
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -18,20 +17,18 @@ function shuffle(array) {
     return array;
 }
 
-// Randomize carousel items
 function randomizeCarousel() {
     const shuffledItems = shuffle(carouselItems);
-    carousel.innerHTML = ''; // Clear carousel
+    carousel.innerHTML = '';
     shuffledItems.forEach(item => carousel.appendChild(item));
+    carouselItems = shuffledItems;
 }
 
-// Update the carousel's position
 function updateCarousel() {
-    const offset = -currentIndex * (100 / 3); // Adjust for three items visible
+    const offset = -currentIndex * (100 / 3);
     carousel.style.transform = `translateX(${offset}%)`;
 }
 
-// Navigate the carousel left or right
 function navigateCarousel(direction) {
     if (direction === 'left') {
         currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
@@ -41,7 +38,6 @@ function navigateCarousel(direction) {
     updateCarousel();
 }
 
-// Event listeners for navigation
 leftArrow.addEventListener('click', () => navigateCarousel('left'));
 rightArrow.addEventListener('click', () => navigateCarousel('right'));
 document.addEventListener('keydown', function (event) {
@@ -52,7 +48,6 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Modal functionality
 document.querySelectorAll('.view-full-button').forEach(button => {
     button.addEventListener('click', function () {
         const item = button.closest('.carousel-item');
@@ -73,7 +68,6 @@ window.addEventListener('click', function (event) {
     }
 });
 
-// Touch/swipe functionality
 let startX;
 let startY;
 let isDragging = false;
@@ -105,10 +99,9 @@ document.addEventListener('touchend', function () {
     isDragging = false;
 });
 
-// Ensure the modal is closed when the page loads
 window.addEventListener('load', () => {
     modal.style.display = 'none';
-    randomizeCarousel(); // Randomize the paintings
-    currentIndex = Math.floor(carouselItems.length / 2); // Start with middle painting selected
+    randomizeCarousel();
+    currentIndex = Math.floor(carouselItems.length / 2);
     updateCarousel();
 });

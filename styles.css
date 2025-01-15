@@ -27,7 +27,7 @@ header h1 {
 
 .carousel-container {
     position: relative;
-    width: 100%;
+    width: 80%;
     max-width: 800px;
     overflow: hidden;
     margin-top: 20px;
@@ -37,18 +37,18 @@ header h1 {
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    align-items: center; /* Ensure items are centered vertically */
+    align-items: center;
 }
 
 .carousel-item {
-    flex: 0 0 30%; /* Adjusted for better responsiveness */
+    flex: 0 0 calc(33.333% - 30px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 0 5px; /* Adjust margin to prevent overflow */
+    margin: 0 15px;
     box-sizing: border-box;
 }
 
@@ -91,7 +91,7 @@ header h1 {
 }
 
 .carousel-item h3 {
-    font-size: 18px;
+    font-size: 21.6px;
     color: #333;
     margin-bottom: 5px;
 }
@@ -105,11 +105,10 @@ header h1 {
 .view-full-button {
     margin-top: 10px;
     padding: 5px 10px;
-    background-color: #ff5f5f;
+    background-color: #333;
     color: white;
     border: none;
     border-radius: 5px;
-    text-decoration: none;
     font-size: 14px;
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s;
@@ -118,7 +117,7 @@ header h1 {
 }
 
 .view-full-button:hover {
-    background-color: #ff3f3f;
+    background-color: #555;
 }
 
 #left-arrow, #right-arrow {
@@ -153,7 +152,7 @@ header h1 {
 .support-button {
     margin-top: 20px;
     padding: 15px 30px;
-    background-color: #ff5f5f;
+    background-color: #333;
     color: white;
     border: none;
     border-radius: 5px;
@@ -164,7 +163,7 @@ header h1 {
 }
 
 .support-button:hover {
-    background-color: #ff3f3f;
+    background-color: #555;
 }
 
 .modal {
