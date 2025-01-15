@@ -8,6 +8,7 @@ body {
     background-size: cover;
     perspective: 2000px;
     font-family: 'Roboto', sans-serif;
+    padding-bottom: 60px; /* Add padding to prevent footer overlap */
 }
 
 header {
@@ -109,24 +110,24 @@ header h1 {
 
 .view-full-button {
     margin-top: 10px;
-    padding: 10px 15px; /* Ensure padding is consistent */
+    padding: 8px 12px; /* Adjust button size */
     background-color: #ff5f5f;
     color: white;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px; /* Smaller font size for buttons */
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s;
     cursor: pointer;
     z-index: 10; /* Ensure the button is above other elements */
-    position: relative; /* Ensure the button is positioned correctly */
-    display: inline-block; /* Ensure the clickable area matches the button size */
+    position: relative; /* Ensure the button is correctly aligned */
 }
 
 .view-full-button:hover {
     background-color: #ff3f3f;
 }
+
 #left-arrow, #right-arrow {
     position: absolute;
     top: 50%;
@@ -156,30 +157,18 @@ header h1 {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-footer {
-    position: relative; /* Change from fixed to relative */
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-    font-family: 'CustomFont', sans-serif;
-    margin-top: 20px; /* Add spacing above the footer */
-}
-
 .support-button {
-    margin-top: 50px; /* Ensure there's enough space between the button and the footer */
-    padding: 15px 30px;
+    margin-top: 20px; /* Adjust margin to prevent overlap */
+    padding: 10px 20px;
     background-color: #ff5f5f;
     color: white;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px; /* Adjust support button size */
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s;
-    z-index: 10; /* Ensure button is above other elements */
-    position: relative; /* Ensure it respects the document flow */
+    position: relative; /* Ensure the button is correctly aligned */
 }
 
 .support-button:hover {
@@ -249,6 +238,16 @@ footer {
     cursor: pointer;
 }
 
+footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'CustomFont', sans-serif;
+    z-index: -1; /* Ensure the footer is below the support button */
+}
 
 /* Responsive design for mobile */
 @media (max-width: 768px) {
@@ -276,7 +275,6 @@ footer {
     .support-button {
         font-size: 16px; /* Adjust support button size */
         padding: 10px 20px;
-        margin-top: 40px; /* Ensure spacing above footer */
     }
 
     .modal-content {
@@ -285,7 +283,6 @@ footer {
 
     footer {
         font-size: 12px; /* Smaller font size for footer */
-        margin-top: 20px;
     }
 }
 
