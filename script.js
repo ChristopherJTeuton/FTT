@@ -70,6 +70,7 @@ window.addEventListener('click', function(event) {
 let startX;
 let startY;
 let isDragging = false;
+let lastSwipeTime = 0;
 
 document.addEventListener('touchstart', function(event) {
     startX = event.touches[0].clientX;
@@ -79,6 +80,10 @@ document.addEventListener('touchstart', function(event) {
 
 document.addEventListener('touchmove', function(event) {
     if (!isDragging) return;
+
+    const currentTime = new Date().getTime();
+    if (currentTime - lastSwipeTime < 300) return; // Debounce to prevent rapid swipes
+
     const x = event.touches[0].clientX;
     const y = event.touches[0].clientY;
     const dx = x - startX;
@@ -91,6 +96,7 @@ document.addEventListener('touchmove', function(event) {
             navigateCarousel('left');
         }
         isDragging = false;
+        lastSwipeTime = currentTime;
     }
 });
 
